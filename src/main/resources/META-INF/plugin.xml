@@ -10,6 +10,11 @@
     <depends>JavaScript</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-
+        <fileType name="JSON" language="JSON" fileNames="truffle-config.js"/>
+        <!-- works in WebStorm and other SmallIDEs -->
+        <directoryProjectGenerator implementation="com.nekofar.milad.intellij.nestjs.cli.NestCliProjectGenerator" />
+        <projectTemplatesFactory implementation="com.nekofar.milad.intellij.nestjs.cli.NestProjectTemplateFactory"/>
+        <!-- works in new IDEA wizard -->
+        <moduleBuilder builderClass="com.nekofar.milad.intellij.nestjs.cli.NestCliProjectModuleBuilder" />
     </extensions>
 </idea-plugin>
