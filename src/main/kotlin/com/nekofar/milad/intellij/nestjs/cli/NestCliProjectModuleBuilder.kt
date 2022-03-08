@@ -1,0 +1,6 @@
+package com.nekofar.milad.intellij.nestjs.cli
+
+import com.intellij.ide.util.projectWizard.WebTemplateNewProjectWizard
+import com.intellij.ide.wizard.GeneratorNewProjectWizardBuilderAdapter
+
+class NestCliProjectModuleBuilder : GeneratorNewProjectWizardBuilderAdapter(WebTemplateNewProjectWizard(NestCliProjectGenerator()))
