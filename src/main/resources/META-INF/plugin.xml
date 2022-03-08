@@ -10,7 +10,8 @@
     <depends>JavaScript</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-        <fileType name="JSON" language="JSON" fileNames="truffle-config.js"/>
+        <fileType name="JSON" language="JSON" fileNames="nest-cli.json"/>
+        <iconProvider implementation="com.nekofar.milad.intellij.nestjs.config.NestConfigIconProvider"/>
         <!-- works in WebStorm and other SmallIDEs -->
         <directoryProjectGenerator implementation="com.nekofar.milad.intellij.nestjs.cli.NestCliProjectGenerator" />
         <projectTemplatesFactory implementation="com.nekofar.milad.intellij.nestjs.cli.NestProjectTemplateFactory"/>
