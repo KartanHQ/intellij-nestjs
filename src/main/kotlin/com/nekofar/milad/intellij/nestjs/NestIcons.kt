@@ -6,8 +6,8 @@ import javax.swing.Icon
 @Suppress("unused")
 object NestIcons {
     @JvmField
-    val FileType = IconLoader.getIcon("/icons/nest.svg", javaClass)
+    val FileType = IconLoader.getIcon("/icons/type.svg", javaClass)
 
     @JvmField
-    val ProjectGenerator: Icon = IconLoader.getIcon("/icons/nest.png", javaClass)
+    val ProjectGenerator: Icon = IconLoader.getIcon("/icons/nest.svg", javaClass)
 }
