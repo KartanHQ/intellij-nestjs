@@ -8,44 +8,30 @@ import com.intellij.openapi.roots.ContentEntry
 import com.intellij.openapi.vfs.VirtualFile
 import com.nekofar.milad.intellij.nestjs.NestBundle
 import com.nekofar.milad.intellij.nestjs.NestIcons
-import javax.swing.Icon
 
-class NestCliProjectGenerator: NpmPackageProjectGenerator() {
+class NestCliProjectGenerator : NpmPackageProjectGenerator() {
     private val packageName = "@nestjs/cli"
     private val executable = "nest"
     private val initCommand = "new"
 
-    override fun getName(): String {
-        return NestBundle.message("nest.project.generator.name")
-    }
+    override fun getIcon() = NestIcons.ProjectGenerator
 
-    override fun getDescription(): String {
-        return NestBundle.message("nest.project.generator.description")
-    }
+    override fun getName() = NestBundle.message("nest.project.generator.name")
 
-    override fun filters(project: Project, baseDir: VirtualFile): Array<Filter> {
-        return emptyArray()
-    }
+    override fun getDescription() = NestBundle.message("nest.project.generator.description")
 
-    override fun customizeModule(p0: VirtualFile, p1: ContentEntry?) {}
+    override fun filters(project: Project, baseDir: VirtualFile): Array<Filter> = emptyArray()
 
-    override fun packageName(): String {
-        return packageName
-    }
+    override fun customizeModule(baseDir: VirtualFile, entry: ContentEntry?) { /* Do nothing */ }
 
-    override fun presentablePackageName(): String {
-        return NestBundle.message("nest.project.generator.presentable.package.name")
-    }
+    override fun packageName() = packageName
 
-    override fun getNpxCommands(): List<NpxPackageDescriptor.NpxCommand> {
-        return listOf(NpxPackageDescriptor.NpxCommand(packageName, executable))
-    }
+    override fun presentablePackageName() = NestBundle.message("nest.project.generator.presentable.package.name")
+
+    override fun getNpxCommands() = listOf(NpxPackageDescriptor.NpxCommand(packageName, executable))
 
     override fun generatorArgs(project: Project?, dir: VirtualFile?, settings: Settings?): Array<String> {
-        return arrayOf(initCommand, "--directory", ".", "--package-manager", "npm")
-    }
-
-    override fun getIcon(): Icon {
-        return NestIcons.ProjectGenerator
+        val projectName = project?.name.orEmpty()
+        return arrayOf(initCommand, "--directory", ".", "--package-manager", "npm", projectName)
     }
 }
