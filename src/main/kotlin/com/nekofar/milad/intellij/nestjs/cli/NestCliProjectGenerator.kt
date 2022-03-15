@@ -31,6 +31,7 @@ class NestCliProjectGenerator : NpmPackageProjectGenerator() {
     override fun getNpxCommands() = listOf(NpxPackageDescriptor.NpxCommand(packageName, executable))
 
     override fun generatorArgs(project: Project?, dir: VirtualFile?, settings: Settings?): Array<String> {
-        return arrayOf(initCommand, "--directory", ".", "--package-manager", "npm")
+        val projectName = project?.name.orEmpty()
+        return arrayOf(initCommand, "--directory", ".", "--package-manager", "npm", projectName)
     }
 }
