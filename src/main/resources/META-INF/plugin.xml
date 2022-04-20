@@ -17,5 +17,7 @@
         <projectTemplatesFactory implementation="com.nekofar.milad.intellij.nestjs.cli.NestProjectTemplateFactory"/>
         <!-- works in new IDEA wizard -->
         <moduleBuilder builderClass="com.nekofar.milad.intellij.nestjs.cli.NestCliProjectModuleBuilder" />
+
+        <errorHandler implementation="com.nekofar.milad.intellij.nestjs.diagnostic.NestErrorReportSubmitter"/>
     </extensions>
 </idea-plugin>
