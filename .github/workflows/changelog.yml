@@ -28,14 +28,14 @@ jobs:
           PROPERTIES="$(./gradlew properties --console=plain -q)"
           VERSION="$(echo "$PROPERTIES" | grep "^version:" | cut -f2- -d ' ')"
 
-          echo "::set-output name=version::$VERSION"
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
 
       # Generate a changelog
       - name: Generate a changelog
         uses: orhun/git-cliff-action@v2.0.3
         id: git-cliff
         with:
-          config: .github/changelog/cliff.toml
+          config: cliff.toml
           args: --verbose
         env:
           OUTPUT: CHANGELOG.md
