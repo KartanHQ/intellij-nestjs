@@ -74,11 +74,9 @@ jobs:
           fi
           
           CHANGELOG="$(./gradlew getChangelog ${GRADLE_PARAMS[@]})"
-          CHANGELOG="${CHANGELOG//'%'/'%25'}"
-          CHANGELOG="${CHANGELOG//$'\n'/'%0A'}"
-          CHANGELOG="${CHANGELOG//$'\r'/'%0D'}"
-          
-          echo "changelog=$CHANGELOG" >> $GITHUB_OUTPUT
+          echo "changelog<<EOF" >> $GITHUB_OUTPUT
+          echo "$CHANGELOG" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
 
       # Cache Plugin Verifier IDEs
       - name: Setup Plugin Verifier IDEs Cache
