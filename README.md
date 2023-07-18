@@ -9,11 +9,13 @@
 
 
 <!-- Plugin description -->
-Provides boilerplate codes for easier project creation using [Nest](https://nestjs.com) CLI.
+[Nest](https://nestjs.com), a progressive Node.js framework, aids in the construction of efficient, reliable, and scalable server-side applications.
 
-Speed up the setup phase of app development for both new and experienced developers.
+Utilize this plugin, a valuable tool that expedites the initial setup of your Nest applications.
+
+This plugin is ideal for speeding up the application development setup phase, beneficial for both novice and experienced developers.
 <!-- Plugin description end -->
 
 ## Installation
 
-To install plugin open `Preferences > Plugins > Marketplace`, and search for Nest.
+For plugin installation, navigate to `Preferences`, then `Plugins`, and finally `Marketplace`. In the search bar, enter `Nest`.
