@@ -49,7 +49,7 @@ jobs:
 
       # Validate wrapper
       - name: Gradle Wrapper Validation
-        uses: gradle/wrapper-validation-action@v1.0.6
+        uses: gradle/wrapper-validation-action@v1.1.0
 
       # Setup Java environment for the next steps
       - name: Setup Java
@@ -60,7 +60,7 @@ jobs:
 
       # Setup Gradle
       - name: Setup Gradle
-        uses: gradle/gradle-build-action@v2.6.0
+        uses: gradle/gradle-build-action@v2.6.1
 
       # Set environment variables
       - name: Export Properties
@@ -134,7 +134,7 @@ jobs:
 
       # Setup Gradle
       - name: Setup Gradle
-        uses: gradle/gradle-build-action@v2.6.0
+        uses: gradle/gradle-build-action@v2.6.1
 
       # Run tests
       - name: Run Tests
@@ -178,7 +178,7 @@ jobs:
 
       # Run Qodana inspections
       - name: Qodana - Code Inspection
-        uses: JetBrains/qodana-action@v2023.1.5
+        uses: JetBrains/qodana-action@v2023.2.1
         with:
           cache-default-branch-only: true
 
@@ -207,7 +207,7 @@ jobs:
 
       # Setup Gradle
       - name: Setup Gradle
-        uses: gradle/gradle-build-action@v2.6.0
+        uses: gradle/gradle-build-action@v2.6.1
 
       # Cache Plugin Verifier IDEs
       - name: Setup Plugin Verifier IDEs Cache
