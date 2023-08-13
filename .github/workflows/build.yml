@@ -53,14 +53,14 @@ jobs:
 
       # Setup Java environment for the next steps
       - name: Setup Java
-        uses: actions/setup-java@v3.11.0
+        uses: actions/setup-java@v3.12.0
         with:
           distribution: zulu
           java-version: 17
 
       # Setup Gradle
       - name: Setup Gradle
-        uses: gradle/gradle-build-action@v2.6.1
+        uses: gradle/gradle-build-action@v2.7.0
 
       # Set environment variables
       - name: Export Properties
@@ -127,14 +127,14 @@ jobs:
 
       # Setup Java environment for the next steps
       - name: Setup Java
-        uses: actions/setup-java@v3.11.0
+        uses: actions/setup-java@v3.12.0
         with:
           distribution: zulu
           java-version: 17
 
       # Setup Gradle
       - name: Setup Gradle
-        uses: gradle/gradle-build-action@v2.6.1
+        uses: gradle/gradle-build-action@v2.7.0
 
       # Run tests
       - name: Run Tests
@@ -171,7 +171,7 @@ jobs:
 
       # Setup Java environment for the next steps
       - name: Setup Java
-        uses: actions/setup-java@v3.11.0
+        uses: actions/setup-java@v3.12.0
         with:
           distribution: zulu
           java-version: 17
@@ -200,14 +200,14 @@ jobs:
 
       # Setup Java environment for the next steps
       - name: Setup Java
-        uses: actions/setup-java@v3.11.0
+        uses: actions/setup-java@v3.12.0
         with:
           distribution: zulu
           java-version: 17
 
       # Setup Gradle
       - name: Setup Gradle
-        uses: gradle/gradle-build-action@v2.6.1
+        uses: gradle/gradle-build-action@v2.7.0
 
       # Cache Plugin Verifier IDEs
       - name: Setup Plugin Verifier IDEs Cache
@@ -245,7 +245,7 @@ jobs:
 
       # Setup Java environment for the next steps
       - name: Setup Java
-        uses: actions/setup-java@v3.11.0
+        uses: actions/setup-java@v3.12.0
         with:
           distribution: zulu
           java-version: 17
