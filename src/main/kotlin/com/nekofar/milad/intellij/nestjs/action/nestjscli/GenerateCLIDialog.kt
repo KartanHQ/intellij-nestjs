@@ -55,14 +55,20 @@ class GenerateCLIDialog(private val project: Project?, e: AnActionEvent) : Dialo
         autoCompleteField.text = state.parameter
         pathLabel.text = directory.path
         pathLabel.icon = AllIcons.Actions.GeneratedFolder
+        // Initial check if warning label should be visible
+        warningLabel.isVisible = isAppOrLibrarySelected()
         init()
         comboBox.addItemListener {
             if (it?.stateChange == ItemEvent.SELECTED) {
-                warningLabel.isVisible = comboBox.selectedItem == "app"
-                        || comboBox.selectedItem == "library"
+                warningLabel.isVisible = isAppOrLibrarySelected()
             }
         }
         ComboboxSpeedSearch(comboBox)
+    }
+
+    private fun isAppOrLibrarySelected(): Boolean {
+        return comboBox.selectedItem == "app"
+                || comboBox.selectedItem == "library"
     }
 
     override fun createCenterPanel(): JComponent {

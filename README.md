@@ -11,7 +11,10 @@
 <!-- Plugin description -->
 [Nest](https://nestjs.com), a progressive Node.js framework, aids in the construction of efficient, reliable, and scalable server-side applications.
 
-Utilize this plugin, a valuable tool that expedites the initial setup of your Nest applications.
+**Utilize this plugin:** 
+- To expedite the initial setup of your Nest applications.
+- NestCLI / Schematics to generate Modules, Controllers, Services, Guards, pipes, apps, libraries and many more.
+
 
 This plugin is ideal for speeding up the application development setup phase, beneficial for both novice and experienced developers.
 <!-- Plugin description end -->

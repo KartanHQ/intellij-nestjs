@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+
+### Features
+- #213 - Run NestJS Schematics (CLI) through right-click menu option
+
 ## [1.2.21] - 2023-08-13
 
 ### Bug Fixes
