@@ -30,12 +30,11 @@
         <moduleBuilder builderClass="com.nekofar.milad.intellij.nestjs.cli.NestCliProjectModuleBuilder" />
 
         <errorHandler implementation="com.nekofar.milad.intellij.nestjs.diagnostic.NestErrorReportSubmitter"/>
-
     </extensions>
     <actions>
-        <action id="com.nekofar.milad.intellij.nestjs.action.NestjsSchematicsAction"
-                class="com.nekofar.milad.intellij.nestjs.action.NestjsSchematicsAction"
-                text="NestJS Schematics">
+        <action id="com.nekofar.milad.intellij.nestjs.action.NestjsCliAction"
+                class="com.nekofar.milad.intellij.nestjs.action.NestjsCliAction"
+                text="NestJS CLI">
             <add-to-group group-id="NewGroup" anchor="after" relative-to-action="NewDir" />
         </action>
 
