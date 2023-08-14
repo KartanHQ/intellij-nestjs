@@ -5,20 +5,30 @@ import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.vfs.VirtualFile
 import com.nekofar.milad.intellij.nestjs.NestIcons
+import com.nekofar.milad.intellij.nestjs.action.nestjscli.store.CLIStore.store
 import java.nio.file.Files
 import java.nio.file.Paths
 
+
 class NestjsCliAction : AnAction(NestIcons.ProjectGenerator) {
+
+    init {
+       store.subscribe {
+        println(store.state)
+       }
+    }
 
     override fun getActionUpdateThread(): ActionUpdateThread {
         return super.getActionUpdateThread()
     }
 
+
     override fun actionPerformed(e: AnActionEvent) {
         val project = e.project
-        val placeholderText = "Filename --options"
-        val dialog = GenerateCLIDialog(project)
-        dialog.showAndGet()
+        val dialog = GenerateCLIDialog(project, e)
+        val clickedOk = dialog.showAndGet()
+        if (clickedOk) {
+        }
     }
 
     override fun update(e: AnActionEvent) {
@@ -35,5 +45,4 @@ class NestjsCliAction : AnAction(NestIcons.ProjectGenerator) {
         }
         e.presentation.isEnabledAndVisible = isProjectOpen && isFileExists
     }
-
 }
