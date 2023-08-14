@@ -53,14 +53,6 @@ class CLIOptionsCompletionProvider(private val items: List<String>) : TextFieldW
         return if (c == '-') CharFilter.Result.ADD_TO_PREFIX else null
     }
 
-    override fun compare(left: String?, right: String?): Int {
-        return when {
-            left == null -> -1
-            right == null -> 1
-            else -> left.compareTo(right)
-        }
-    }
-
     override fun createLookupBuilder(item: String): LookupElementBuilder {
         val description = options.filter {
             it.key == item }.first().value

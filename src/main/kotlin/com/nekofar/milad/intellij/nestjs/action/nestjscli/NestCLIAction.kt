@@ -62,10 +62,7 @@ class NestjsCliAction : DumbAwareAction(NestIcons.ProjectGenerator) {
 
         val modules: MutableList<CompletionModuleInfo> = mutableListOf()
         val cli: VirtualFile = project.guessProjectDir()!!
-        val filePath = Paths.get(cli.path, "nest-cli.json")
-        val isFileExists = Files.exists(filePath)
-        println(isFileExists)
-        println(cli.path)
+
         NodeModuleSearchUtil.findModulesWithName(modules, "@nestjs/cli", cli, null)
 
         val module = modules.firstOrNull() ?: return
