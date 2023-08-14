@@ -16,7 +16,7 @@ import com.nekofar.milad.intellij.nestjs.action.nestjscli.store.CLIStore.store
 import javax.swing.DefaultComboBoxModel
 import javax.swing.JComponent
 
-class GenerateCLIDialog(project: Project?, val e: AnActionEvent): DialogWrapper(project) {
+class GenerateCLIDialog(val project: Project?, val e: AnActionEvent): DialogWrapper(project) {
     private val autoCompleteField = TextFieldWithAutoCompletion<String>(
         project,
         CLIOptionsCompletionProvider(CLIOptionsCompletionProvider.options.keys.toList()), false,
@@ -65,7 +65,9 @@ class GenerateCLIDialog(project: Project?, val e: AnActionEvent): DialogWrapper(
         store.dispatch(Action.GenerateCLIAction(
             type = comboBox.item,
             options = autoCompleteField.text,
-            filePath = directory.path)
+            filePath = directory.path,
+            project = project!!,
+            workingDir = directory)
         )
         super.doOKAction()
     }
