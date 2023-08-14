@@ -30,7 +30,7 @@ class GenerateCLIDialog(project: Project?): DialogWrapper(project) {
     }
 
     init {
-        title = "NestJS Generate"
+        title = "Nest CLI/Schematics Generate"
         init()
         ComboboxSpeedSearch(comboBox)
     }

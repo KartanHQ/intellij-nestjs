@@ -34,7 +34,7 @@
     <actions>
         <action id="com.nekofar.milad.intellij.nestjs.action.nestjscli.NestjsCliAction"
                 class="com.nekofar.milad.intellij.nestjs.action.nestjscli.NestjsCliAction"
-                text="NestJS CLI">
+                text="Nest CLI/Schematics">
             <add-to-group group-id="NewGroup" anchor="after" relative-to-action="NewDir" />
         </action>
 
