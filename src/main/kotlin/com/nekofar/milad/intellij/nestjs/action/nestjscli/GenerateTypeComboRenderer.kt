@@ -1,20 +1,24 @@
 package com.nekofar.milad.intellij.nestjs.action.nestjscli
 
+import com.intellij.ui.ColoredListCellRenderer
+import com.intellij.ui.SimpleTextAttributes
 import com.jetbrains.rd.util.first
-import java.awt.Component
-import javax.swing.JLabel
 import javax.swing.JList
-import javax.swing.ListCellRenderer
 
-class GenerateTypeComboRenderer: ListCellRenderer<String> {
-    private val myLabel = JLabel()
-    override fun getListCellRendererComponent(list: JList<out String>?, value: String?, index: Int,
-                                              isSelected: Boolean, cellHasFocus: Boolean): Component {
+class GenerateTypeComboRenderer: ColoredListCellRenderer<String>() {
+    override fun customizeCellRenderer(
+        list: JList<out String>,
+        value: String?,
+        index: Int,
+        selected: Boolean,
+        hasFocus: Boolean
+    ) {
         if (value != null) {
             val desc = CLIOptionsCompletionProvider.generateItems.
-                                filter { it.key == value }.first().value
-            myLabel.setText("<html>$value <font color='gray'> $desc </font></html>")
+            filter { it.key == value }.first().value
+            append(value)
+            append("    ", SimpleTextAttributes.REGULAR_ATTRIBUTES)
+            append(desc, SimpleTextAttributes.GRAY_ATTRIBUTES)
         }
-        return myLabel
     }
 }

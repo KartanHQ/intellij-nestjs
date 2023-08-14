@@ -10,6 +10,7 @@ import com.intellij.openapi.actionSystem.ActionUpdateThread
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.project.DumbAwareAction
 import com.intellij.openapi.project.Project
+import com.intellij.openapi.project.guessProjectDir
 import com.intellij.openapi.vfs.VfsUtilCore
 import com.intellij.openapi.vfs.VirtualFile
 import com.nekofar.milad.intellij.nestjs.NestIcons
@@ -23,9 +24,7 @@ class NestjsCliAction : DumbAwareAction(NestIcons.ProjectGenerator) {
 
     init {
         store.subscribe {
-            println(store.state)
-            val projectDirectory: VirtualFile = store.state.project!!.baseDir
-            println(projectDirectory)
+            val projectDirectory: VirtualFile = store.state.project!!.guessProjectDir()!!
             runGenerator(store.state.project!!, store.state, projectDirectory, store.state.workingDir)
         }
     }
@@ -37,7 +36,7 @@ class NestjsCliAction : DumbAwareAction(NestIcons.ProjectGenerator) {
     override fun actionPerformed(e: AnActionEvent) {
         val project = e.project
         val dialog = GenerateCLIDialog(project, e)
-        val clickedOk = dialog.showAndGet()
+        dialog.showAndGet()
     }
 
     override fun update(e: AnActionEvent) {
@@ -48,7 +47,7 @@ class NestjsCliAction : DumbAwareAction(NestIcons.ProjectGenerator) {
 
         if (isProjectOpen) {
             assert(project != null)
-            val projectDirectory: VirtualFile = project!!.baseDir
+            val projectDirectory: VirtualFile = project!!.guessProjectDir()!!
             val filePath = Paths.get(projectDirectory.path, "nest-cli.json")
             isFileExists = Files.exists(filePath)
         }
