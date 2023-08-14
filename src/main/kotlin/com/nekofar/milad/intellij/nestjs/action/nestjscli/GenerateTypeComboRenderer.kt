@@ -8,7 +8,8 @@ import javax.swing.ListCellRenderer
 
 class GenerateTypeComboRenderer: ListCellRenderer<String> {
     private val myLabel = JLabel()
-    override fun getListCellRendererComponent(list: JList<out String>?, value: String?, index: Int, isSelected: Boolean, cellHasFocus: Boolean): Component {
+    override fun getListCellRendererComponent(list: JList<out String>?, value: String?, index: Int,
+                                              isSelected: Boolean, cellHasFocus: Boolean): Component {
         if (value != null) {
             val desc = CliOptionsCompletionProvider.generateItems.
                                 filter { it.key == value }.first().value
