@@ -10,7 +10,7 @@ class CLIOptionsCompletionProvider(private val items: List<String>) : TextFieldW
 
     companion object {
         val generateItems = mapOf(
-                "application" to "Generate a new application workspace",
+                "app" to "Generate a new application within a monorepo.",
                 "class" to "Generate a new class",
                 "configuration" to "Generate a CLI configuration file",
                 "controller" to "Generate a controller declaration",
@@ -20,7 +20,7 @@ class CLIOptionsCompletionProvider(private val items: List<String>) : TextFieldW
                 "guard" to "Generate a guard declaration",
                 "interceptor" to "Generate an interceptor declaration",
                 "interface" to "Generate an interface",
-                "library" to "Generate a new library within a monorepo",
+                "library" to "Generate a new library within a monorepo.",
                 "middleware" to "Generate a middleware declaration",
                 "module" to "Generate a module declaration",
                 "pipe" to "Generate a pipe declaration",

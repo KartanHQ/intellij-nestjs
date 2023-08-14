@@ -19,6 +19,7 @@ class GenerateTypeComboRenderer: ColoredListCellRenderer<String>() {
             append(value)
             append("    ", SimpleTextAttributes.REGULAR_ATTRIBUTES)
             append(desc, SimpleTextAttributes.GRAY_ATTRIBUTES)
+            setSize(list.width, Int.MAX_VALUE)
         }
     }
 }

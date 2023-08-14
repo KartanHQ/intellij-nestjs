@@ -24,8 +24,7 @@ class NestjsCliAction : DumbAwareAction(NestIcons.ProjectGenerator) {
 
     init {
         store.subscribe {
-            val projectDirectory: VirtualFile = store.state.project!!.guessProjectDir()!!
-            runGenerator(store.state.project!!, store.state, projectDirectory, store.state.workingDir)
+            runGenerator(store.state.project!!, store.state, store.state.workingDir)
         }
     }
 
@@ -57,12 +56,16 @@ class NestjsCliAction : DumbAwareAction(NestIcons.ProjectGenerator) {
     private fun runGenerator(
         project: Project,
         schematic: GenerateCLIState,
-        cli: VirtualFile,
         workingDir: VirtualFile?
     ) {
         val interpreter = NodeJsInterpreterManager.getInstance(project).interpreter ?: return
 
         val modules: MutableList<CompletionModuleInfo> = mutableListOf()
+        val cli: VirtualFile = project.guessProjectDir()!!
+        val filePath = Paths.get(cli.path, "nest-cli.json")
+        val isFileExists = Files.exists(filePath)
+        println(isFileExists)
+        println(cli.path)
         NodeModuleSearchUtil.findModulesWithName(modules, "@nestjs/cli", cli, null)
 
         val module = modules.firstOrNull() ?: return

@@ -14,8 +14,10 @@ import com.intellij.ui.components.JBLabel
 import com.intellij.ui.dsl.builder.TopGap
 import com.intellij.ui.dsl.builder.panel
 import com.intellij.ui.dsl.gridLayout.HorizontalAlign
+import com.intellij.util.ui.UIUtil
 import com.nekofar.milad.intellij.nestjs.action.nestjscli.store.Action
 import com.nekofar.milad.intellij.nestjs.action.nestjscli.store.CLIStore.store
+import java.awt.event.ItemEvent
 import javax.swing.DefaultComboBoxModel
 import javax.swing.JComponent
 
@@ -36,6 +38,10 @@ class GenerateCLIDialog(private val project: Project?, e: AnActionEvent) : Dialo
     private val comboBox = ComboBox(comboBoxModel).apply {
         setRenderer(GenerateTypeComboRenderer())
     }
+    private val warningLabel = JBLabel(
+        "Converts to monorepo if it's a standard structure",
+        AllIcons.General.Warning, JBLabel.LEFT
+    )
     private val virtualFile: VirtualFile = e.getRequiredData(CommonDataKeys.VIRTUAL_FILE)
     private val directory = when {
         virtualFile.isDirectory -> virtualFile // If it's directory, use it
@@ -50,6 +56,12 @@ class GenerateCLIDialog(private val project: Project?, e: AnActionEvent) : Dialo
         pathLabel.text = directory.path
         pathLabel.icon = AllIcons.Actions.GeneratedFolder
         init()
+        comboBox.addItemListener {
+            if (it?.stateChange == ItemEvent.SELECTED) {
+                warningLabel.isVisible = comboBox.selectedItem == "app"
+                        || comboBox.selectedItem == "library"
+            }
+        }
         ComboboxSpeedSearch(comboBox)
     }
 
@@ -65,38 +77,51 @@ class GenerateCLIDialog(private val project: Project?, e: AnActionEvent) : Dialo
             row {
                 cell(comboBox).horizontalAlign(HorizontalAlign.FILL)
             }
-            row("Parameters:") {}.topGap(TopGap.SMALL)
             row {
-                cell(autoCompleteField).horizontalAlign(HorizontalAlign.FILL)
-                rowComment(" Filename --options")
+                cell(
+                    warningLabel.apply {
+                        font = UIUtil.getLabelFont(UIUtil.FontSize.SMALL)
+                    }
+                ).horizontalAlign(HorizontalAlign.FILL)
             }
+
+        row("Parameters:") {}.topGap(TopGap.SMALL)
+        row {
+            cell(autoCompleteField).horizontalAlign(HorizontalAlign.FILL)
+        }
+        row {
+            val spaces = " "
+            cell(JBLabel("$spaces Filename --options").apply {
+                font = UIUtil.getLabelFont(UIUtil.FontSize.SMALL)
+            })
         }
     }
+}
 
-    override fun doValidate(): ValidationInfo? {
-        val fileName = autoCompleteField.text.split(" ")[0]
-        var invalidFileName = false
-        if (fileName.isNotBlank() && fileName.startsWith("-", ignoreCase = true)) {
-            invalidFileName = true
-        }
-        return if (fileName.isBlank() || autoCompleteField.text.isBlank() ) {
-            ValidationInfo("Filename cannot be blank", autoCompleteField)
-        } else if(invalidFileName) {
-            ValidationInfo("$fileName in an invalid filename", autoCompleteField)
-        } else null
+override fun doValidate(): ValidationInfo? {
+    val fileName = autoCompleteField.text.split(" ")[0]
+    var invalidFileName = false
+    if (fileName.isNotBlank() && fileName.startsWith("-", ignoreCase = true)) {
+        invalidFileName = true
     }
+    return if (fileName.isBlank() || autoCompleteField.text.isBlank()) {
+        ValidationInfo("Filename cannot be blank", autoCompleteField)
+    } else if (invalidFileName) {
+        ValidationInfo("$fileName in an invalid filename", autoCompleteField)
+    } else null
+}
 
-    override fun doOKAction() {
-        store.dispatch(
-            Action.GenerateCLIAction(
-                type = comboBox.item,
-                options = autoCompleteField.text,
-                filePath = directory.path,
-                project = project!!,
-                workingDir = directory
-            )
+override fun doOKAction() {
+    store.dispatch(
+        Action.GenerateCLIAction(
+            type = comboBox.item,
+            options = autoCompleteField.text,
+            filePath = directory.path,
+            project = project!!,
+            workingDir = directory
         )
-        super.doOKAction()
-    }
+    )
+    super.doOKAction()
+}
 
 }
