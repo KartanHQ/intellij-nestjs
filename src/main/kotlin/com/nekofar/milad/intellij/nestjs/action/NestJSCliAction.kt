@@ -4,14 +4,10 @@ import com.intellij.codeInsight.completion.CompletionParameters
 import com.intellij.codeInsight.lookup.CharFilter
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
-import com.intellij.openapi.editor.EditorFactory
-import com.intellij.openapi.fileTypes.LanguageFileType
-import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.ComboBox
 import com.intellij.openapi.ui.DialogWrapper
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.ui.ComboboxSpeedSearch
-import com.intellij.ui.EditorTextField
 import com.intellij.ui.TextFieldWithAutoCompletion
 import com.intellij.ui.TextFieldWithAutoCompletionListProvider
 import com.intellij.ui.dsl.builder.TopGap
@@ -53,7 +49,7 @@ class NestjsCliAction : AnAction(NestIcons.ProjectGenerator) {
         val project = e.project
         val dialog = object : DialogWrapper(project) {
             private val textField = JTextField()
-            private val items1 = listOf("application",
+            private val generateItems = listOf("application",
                     "class",
                     "configuration",
                     "controller",
@@ -80,7 +76,7 @@ class NestjsCliAction : AnAction(NestIcons.ProjectGenerator) {
                     project, NestJSCliCompleteProvider(options), false, null
             )
             private val comboBoxModel = DefaultComboBoxModel(
-                    items1.toTypedArray()
+                    generateItems.toTypedArray()
             )
             private val comboBox = ComboBox(comboBoxModel)
 
@@ -116,6 +112,8 @@ class NestjsCliAction : AnAction(NestIcons.ProjectGenerator) {
                 textField.text = "name --options"
                 ComboboxSpeedSearch(comboBox)
             }
+        }.apply {
+            title = "NestJS Generate"
         }
 
     dialog.showAndGet()
