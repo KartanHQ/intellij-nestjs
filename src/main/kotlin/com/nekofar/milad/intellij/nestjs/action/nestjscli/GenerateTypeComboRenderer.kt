@@ -11,7 +11,7 @@ class GenerateTypeComboRenderer: ListCellRenderer<String> {
     override fun getListCellRendererComponent(list: JList<out String>?, value: String?, index: Int,
                                               isSelected: Boolean, cellHasFocus: Boolean): Component {
         if (value != null) {
-            val desc = CliOptionsCompletionProvider.generateItems.
+            val desc = CLIOptionsCompletionProvider.generateItems.
                                 filter { it.key == value }.first().value
             myLabel.setText("<html>$value <font color='gray'> $desc </font></html>")
         }

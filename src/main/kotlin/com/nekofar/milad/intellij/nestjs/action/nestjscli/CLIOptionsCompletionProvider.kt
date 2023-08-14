@@ -6,7 +6,7 @@ import com.intellij.codeInsight.lookup.LookupElementBuilder
 import com.intellij.ui.TextFieldWithAutoCompletionListProvider
 import com.jetbrains.rd.util.first
 
-class CliOptionsCompletionProvider(private val items: List<String>) : TextFieldWithAutoCompletionListProvider<String>(items) {
+class CLIOptionsCompletionProvider(private val items: List<String>) : TextFieldWithAutoCompletionListProvider<String>(items) {
 
     companion object {
         val generateItems = mapOf(
