@@ -14,9 +14,11 @@ import com.intellij.ui.components.JBLabel
 import com.intellij.ui.dsl.builder.TopGap
 import com.intellij.ui.dsl.builder.panel
 import com.intellij.ui.dsl.gridLayout.HorizontalAlign
+import com.intellij.util.ui.JBUI
 import com.intellij.util.ui.UIUtil
 import com.nekofar.milad.intellij.nestjs.action.nestjscli.store.Action
 import com.nekofar.milad.intellij.nestjs.action.nestjscli.store.CLIStore.store
+import java.awt.Dimension
 import java.awt.event.ItemEvent
 import javax.swing.DefaultComboBoxModel
 import javax.swing.JComponent
@@ -75,7 +77,15 @@ class GenerateCLIDialog(private val project: Project?, e: AnActionEvent) : Dialo
         return panel {
             row("Path:") {}
             row {
-                cell(pathLabel).horizontalAlign(
+                cell(pathLabel.apply {
+                    border = JBUI.Borders.compound(
+                        UIUtil.getTextFieldBorder(),
+                        JBUI.Borders.empty(0, 5)
+                    )
+                    foreground = UIUtil.getLabelDisabledForeground()
+                    background = UIUtil.getLabelBackground().brighter()
+                    preferredSize = Dimension(pathLabel.width, 35)
+                }).horizontalAlign(
                     HorizontalAlign.FILL
                 )
             }
