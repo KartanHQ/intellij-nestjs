@@ -8,6 +8,7 @@ import com.intellij.lang.javascript.JavaScriptBundle
 import com.intellij.lang.javascript.boilerplate.NpmPackageProjectGenerator
 import com.intellij.openapi.actionSystem.ActionUpdateThread
 import com.intellij.openapi.actionSystem.AnActionEvent
+import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.project.DumbAwareAction
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.project.guessProjectDir
@@ -24,7 +25,9 @@ class NestjsCliAction : DumbAwareAction(NestIcons.ProjectGenerator) {
 
     init {
         store.subscribe {
-            runGenerator(store.state.project!!, store.state, store.state.workingDir)
+            ApplicationManager.getApplication().executeOnPooledThread {
+                runGenerator(store.state.project!!, store.state, store.state.workingDir)
+            }
         }
     }
 
@@ -34,6 +37,7 @@ class NestjsCliAction : DumbAwareAction(NestIcons.ProjectGenerator) {
 
     override fun actionPerformed(e: AnActionEvent) {
         val project = e.project
+
         val dialog = GenerateCLIDialog(project, e)
         dialog.showAndGet()
     }
