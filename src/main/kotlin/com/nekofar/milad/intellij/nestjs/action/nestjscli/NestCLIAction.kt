@@ -8,7 +8,9 @@ import com.intellij.lang.javascript.JavaScriptBundle
 import com.intellij.lang.javascript.boilerplate.NpmPackageProjectGenerator
 import com.intellij.openapi.actionSystem.ActionUpdateThread
 import com.intellij.openapi.actionSystem.AnActionEvent
+import com.intellij.openapi.application.ApplicationInfo
 import com.intellij.openapi.application.ApplicationManager
+import com.intellij.openapi.application.invokeLater
 import com.intellij.openapi.project.DumbAwareAction
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.project.guessProjectDir
@@ -25,15 +27,23 @@ class NestjsCliAction : DumbAwareAction(NestIcons.ProjectGenerator) {
 
     init {
         store.subscribe {
-            ApplicationManager.getApplication().executeOnPooledThread {
-                runGenerator(store.state.project!!, store.state, store.state.workingDir)
+            println(ApplicationInfo.getInstance().majorVersion.toInt())
+            if (ApplicationInfo.getInstance().majorVersion.toInt() >= 2023) {
+                ApplicationManager.getApplication().executeOnPooledThread {
+                    runGenerator(store.state.project!!, store.state, store.state.workingDir)
+                }
+            } else {
+                ApplicationManager.getApplication().executeOnPooledThread {
+                    ApplicationManager.getApplication().invokeLater {
+                        runGenerator(store.state.project!!, store.state, store.state.workingDir)
+                    }
+                }
             }
         }
     }
 
-    override fun getActionUpdateThread(): ActionUpdateThread {
-        return ActionUpdateThread.BGT
-    }
+    override fun getActionUpdateThread() = ActionUpdateThread.BGT
+
 
     override fun actionPerformed(e: AnActionEvent) {
         val project = e.project
@@ -72,14 +82,16 @@ class NestjsCliAction : DumbAwareAction(NestIcons.ProjectGenerator) {
         val module = modules.firstOrNull() ?: return
         val parameters = schematic.parameter.split(" ").toMutableList()
         val fileName = parameters.removeAt(0)
-        NpmPackageProjectGenerator.generate(
-            interpreter, NodePackage(module.virtualFile?.path!!),
-            { pkg -> pkg.findBinFile("nest", null)?.absolutePath },
-            cli, VfsUtilCore.virtualToIoFile(workingDir ?: cli), project,
-            null, JavaScriptBundle.message("generating.0", cli.name),
-            arrayOf(), "generate", schematic.type,
-            fileName,
-            *parameters.toTypedArray(),
-        )
+
+            NpmPackageProjectGenerator.generate(
+                interpreter, NodePackage(module.virtualFile?.path!!),
+                { pkg -> pkg.findBinFile("nest", null)?.absolutePath },
+                cli, VfsUtilCore.virtualToIoFile(workingDir ?: cli), project,
+               null, JavaScriptBundle.message("generating.0", cli.name),
+                arrayOf(), "generate", schematic.type,
+                fileName,
+                *parameters.toTypedArray(),
+            )
+
     }
 }
