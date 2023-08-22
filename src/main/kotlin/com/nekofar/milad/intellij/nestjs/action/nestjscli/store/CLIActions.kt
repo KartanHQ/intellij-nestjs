@@ -9,6 +9,10 @@ class Action {
         val options: String,
         val filePath: String,
         val project: Project,
-        val workingDir: VirtualFile,
+        val generateInDir: VirtualFile,
+        val closestModuleDir: VirtualFile
+    )
+    data class UpdateOptions(
+        val options: String
     )
 }

@@ -6,16 +6,17 @@ import org.reduxkotlin.Reducer
 import org.reduxkotlin.createThreadSafeStore
 
 data class GenerateCLIState(
-    val generateCommand: String = "",
-    val type: String = "",
+    val type: String? = null,
     val parameter: String = "",
     val project: Project? = null,
-    val workingDir: VirtualFile? = null
+    val filePath: String = "",
+    val generateInDir: VirtualFile? = null,
+    val closestModuleDir: VirtualFile? = null
 
 )
 
 object CLIStore {
-    val store = createThreadSafeStore(reducer, GenerateCLIState(generateCommand = ""))
+    val store = createThreadSafeStore(reducer, GenerateCLIState())
 }
 
 val reducer: Reducer<GenerateCLIState> = {state, action ->
@@ -24,10 +25,16 @@ val reducer: Reducer<GenerateCLIState> = {state, action ->
            GenerateCLIState(
                type = action.type,
                parameter = action.options,
-               workingDir = action.workingDir,
+               filePath = action.filePath,
                project = action.project,
-               generateCommand = "nest generate ${action.type} ${action.options} ${action.filePath}"
+               closestModuleDir = action.closestModuleDir,
+               generateInDir = action.generateInDir
            )
+        }
+        is Action.UpdateOptions -> {
+            state.copy(
+                parameter = action.options
+            )
         }
         else -> state
     }
