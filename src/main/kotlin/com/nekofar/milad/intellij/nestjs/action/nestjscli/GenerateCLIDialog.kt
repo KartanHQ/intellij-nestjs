@@ -53,6 +53,10 @@ class GenerateCLIDialog(private val project: Project, val e: AnActionEvent) : Di
         "ModulePath",
         AllIcons.General.Information, JBLabel.LEFT
     )
+    private val noModuleFoundWarningLabel = JBLabel(
+        "No module found to update",
+        AllIcons.General.Warning, JBLabel.LEFT
+    )
     private val virtualFile: VirtualFile = e.getRequiredData(CommonDataKeys.VIRTUAL_FILE)
     private val directory = when {
         virtualFile.isDirectory -> virtualFile // If it's directory, use it
@@ -95,12 +99,12 @@ class GenerateCLIDialog(private val project: Project, val e: AnActionEvent) : Di
 
     override fun createCenterPanel(): JComponent {
         return panel {
-            row("Generate Path:") {}
+            row("Generate Path:") {}.visible(generatePath.text.trim().isNotBlank())
             row {
                 cell(generatePath).horizontalAlign(
                     HorizontalAlign.FILL
                 )
-            }
+            }.visible(generatePath.text.trim().isNotBlank())
 
 
             row("Type:") {}.topGap(TopGap.SMALL)
@@ -144,9 +148,17 @@ class GenerateCLIDialog(private val project: Project, val e: AnActionEvent) : Di
                     font = UIUtil.getLabelFont(UIUtil.FontSize.SMALL)
                 }).horizontalAlign(
                     HorizontalAlign.FILL
+                ).visible(moduleInfoLabel.text.contains("module.ts"))
+                cell(noModuleFoundWarningLabel.apply {
+                    font = UIUtil.getLabelFont(UIUtil.FontSize.SMALL)
+                }).horizontalAlign(
+                    HorizontalAlign.FILL
+                ).visible(
+                    !moduleInfoLabel.text.contains("module.ts")
+                            && generatePath.text.trim().isNotBlank()
                 )
             }.visibleIf(showModuleLocation)
-                .visibleIf(TextComponentPredicate(autoCompleteField) {
+              .visibleIf(TextComponentPredicate(autoCompleteField) {
                     !it.contains("--skip-import")
                 })
         }
