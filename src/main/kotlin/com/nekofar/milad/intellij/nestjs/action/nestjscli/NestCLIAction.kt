@@ -33,7 +33,9 @@ class NestjsCliAction : DumbAwareAction(NestIcons.ProjectGenerator) {
         val clickedOk = dialog.showAndGet()
         if (clickedOk) {
             if (ApplicationInfo.getInstance().majorVersion.toInt() >= 2023) {
-                runGenerator(store.state.project!!, store.state)
+                ApplicationManager.getApplication().executeOnPooledThread {
+                    runGenerator(store.state.project!!, store.state)
+                }
             } else {
                 ApplicationManager.getApplication().executeOnPooledThread {
                     ApplicationManager.getApplication().invokeLater {
