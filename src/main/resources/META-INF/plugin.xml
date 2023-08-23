@@ -31,4 +31,12 @@
 
         <errorHandler implementation="com.nekofar.milad.intellij.nestjs.diagnostic.NestErrorReportSubmitter"/>
     </extensions>
+    <actions>
+        <action id="com.nekofar.milad.intellij.nestjs.action.nestjscli.NestjsCliAction"
+                class="com.nekofar.milad.intellij.nestjs.action.nestjscli.NestjsCliAction"
+                text="Nest CLI/Schematics">
+            <add-to-group group-id="NewGroup" anchor="after" relative-to-action="NewDir" />
+        </action>
+
+    </actions>
 </idea-plugin>
