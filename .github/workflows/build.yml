@@ -49,7 +49,7 @@ jobs:
 
       # Validate wrapper
       - name: Gradle Wrapper Validation
-        uses: gradle/wrapper-validation-action@v1.1.0
+        uses: gradle/wrapper-validation-action@v2.1.1
 
       # Setup Java environment for the next steps
       - name: Setup Java
@@ -60,7 +60,7 @@ jobs:
 
       # Setup Gradle
       - name: Setup Gradle
-        uses: gradle/gradle-build-action@v2.12.0
+        uses: gradle/gradle-build-action@v3.1.0
 
       # Set environment variables
       - name: Export Properties
@@ -109,7 +109,7 @@ jobs:
 
       # Store already-built plugin as an artifact for downloading
       - name: Upload artifact
-        uses: actions/upload-artifact@v4.3.0
+        uses: actions/upload-artifact@v4.3.1
         with:
           name: ${{ steps.artifact.outputs.filename }}
           path: ./build/distributions/content/*/*
@@ -134,7 +134,7 @@ jobs:
 
       # Setup Gradle
       - name: Setup Gradle
-        uses: gradle/gradle-build-action@v2.12.0
+        uses: gradle/gradle-build-action@v3.1.0
 
       # Run tests
       - name: Run Tests
@@ -143,14 +143,14 @@ jobs:
       # Collect Tests Result of failed tests
       - name: Collect Tests Result
         if: ${{ failure() }}
-        uses: actions/upload-artifact@v4.3.0
+        uses: actions/upload-artifact@v4.3.1
         with:
           name: tests-result
           path: ${{ github.workspace }}/build/reports/tests
 
       # Upload Kover report to CodeCov
       - name: Upload Code Coverage Report
-        uses: codecov/codecov-action@v3.1.5
+        uses: codecov/codecov-action@v4.1.0
         with:
           files: ${{ github.workspace }}/build/reports/kover/xml/report.xml
 
@@ -207,7 +207,7 @@ jobs:
 
       # Setup Gradle
       - name: Setup Gradle
-        uses: gradle/gradle-build-action@v2.12.0
+        uses: gradle/gradle-build-action@v3.1.0
 
       # Cache Plugin Verifier IDEs
       - name: Setup Plugin Verifier IDEs Cache
@@ -223,7 +223,7 @@ jobs:
       # Collect Plugin Verifier Result
       - name: Collect Plugin Verifier Result
         if: ${{ always() }}
-        uses: actions/upload-artifact@v4.3.0
+        uses: actions/upload-artifact@v4.3.1
         with:
           name: pluginVerifier-result
           path: ${{ github.workspace }}/build/reports/pluginVerifier
