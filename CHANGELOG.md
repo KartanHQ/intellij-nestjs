@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+## [1.3.0] - 2024-10-07
+
+### Features
+
+- Add `messagePointer` method to `NestBundle`
+
 ## [1.2.29] - 2024-10-05
 
 ### Bug Fixes
