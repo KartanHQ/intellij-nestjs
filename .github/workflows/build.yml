@@ -265,13 +265,6 @@ jobs:
       - name: Fetch Sources
         uses: actions/checkout@v4.2.0
 
-      # Setup Java environment for the next steps
-      - name: Setup Java
-        uses: actions/setup-java@v4.4.0
-        with:
-          distribution: zulu
-          java-version: 17
-
       # Remove old release drafts by using the curl request for the available releases with a draft flag
       - name: Remove Old Release Drafts
         env:
