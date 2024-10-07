@@ -31,11 +31,24 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  guard:
+    name: Usage guard
+    runs-on: ubuntu-latest
+    steps:
+      # Uses the action-usage-guard action
+      - name: Run Action Usage Guard
+        uses: nekofar/action-usage-guard@develop
+        with:
+          # GitHub access token for authentication.
+          token: ${{ secrets.ACCESS_TOKEN }}
+          # Defines the threshold for the usage guard.
+          threshold: 70
 
   # Prepare environment and build the plugin
   build:
     name: Build
     runs-on: ubuntu-latest
+    needs: [ guard ]
     outputs:
       version: ${{ steps.properties.outputs.version }}
       changelog: ${{ steps.changelog.outputs.changelog }}
