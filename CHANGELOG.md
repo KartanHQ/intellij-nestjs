@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+## [1.4.0] - 2025-04-23
+
+### Features
+
+- Add support for instrumentation and verifier tools
+
 ## [1.3.10] - 2025-04-23
 
 ### Bug Fixes
